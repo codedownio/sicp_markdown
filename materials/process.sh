@@ -77,6 +77,9 @@ perl -i -pe 'BEGIN {undef $/;} s/\n\n\n(\$\$[^\$]+\$\$)/\n\n$1/sgm' $TMP
 # Remove the footnotes heading at the bottom
 perl -i -pe 's/## Footnotes//g' $TMP
 
+# Add table of contents to top of file
+sed -i.old '1s;^;\n[[table-of-contents]]\n;' $TMP
+
 # Remove extra newlines at end of file
 # https://unix.stackexchange.com/questions/81685/how-to-remove-multiple-newlines-at-eof
 awk '/^$/ {nlstack=nlstack "\n";next;} {printf "%s",nlstack; nlstack=""; print;}' $TMP > tmp.md
